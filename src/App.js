@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import Form from './Form.js';
+import app from './app.css';
+import Recipe from './Recipe.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+constructor(props) {
+    super(props);
+    this.state = {
+      recipes: []
+    }
+  }
+
+getRecipe = (event) => {
+    const recipeName = event.target.elements.recipeName.value;
+    event.preventDefault();
+    console.log(recipeName);
+    const url = `https://www.food2fork.com/api/search?key=${'bf9aa717cc76ea7069e3a46a8dab83de'}&q=${recipeName}&count=10`;
+    axios.get(url)
+    .then(res => {
+      this.setState({ recipes: res.data.recipes })
+    })
+
+  }
+
+render() {
+    return (
+      <div>
+        <div className="header bg-primary">
+          <h1>Recipe Search</h1>
+        </div>
+        <div className="form-container">
+          <Form className="recipe-form" getRecipe={this.getRecipe}/>
+        </div>
+        <Recipe recipes={this.state.recipes}/>
+      </div>
+    )
+  }
+
 }
+
 
 export default App;

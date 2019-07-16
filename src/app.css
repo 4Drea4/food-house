@@ -31,3 +31,22 @@
     transform: rotate(360deg);
   }
 }
+.header {
+  text-align: center;
+  color: white;
+  padding-bottom: 1%;
+  margin-bottom: 1%;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+.recipes-info img {
+  height: 200px;
+  width: 100%;
+}
+
+.recipes-info {
+  margin-bottom: 15px;
+}
